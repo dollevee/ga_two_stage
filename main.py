@@ -138,7 +138,7 @@ def compute_flows(
 
     for r in data.consumers:
         lp += (
-            pulp.lpSum(f2c[(j, r)] for j in active2) + unmet[r] >= data.demand[r],
+            pulp.lpSum(f2c[(j, r)] for j in active2) + unmet[r] == data.demand[r],
             f"demand_{r}",
         )
 
@@ -157,7 +157,7 @@ def compute_flows(
     for j in active2:
         lp += (
             pulp.lpSum(f2c[(j, r)] for r in data.consumers)
-            <= pulp.lpSum(f12[(i, j)] for i in active1),
+            == pulp.lpSum(f12[(i, j)] for i in active1),
             f"balance_{j}",
         )
 
